@@ -26,4 +26,4 @@
 To start J.A.R.V.I.S., make sure you're in your virtual environment, then simply run:
 
 ```bash
-python jarvis.py
+python main.py
