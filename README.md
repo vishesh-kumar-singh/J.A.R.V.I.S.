@@ -23,7 +23,7 @@
 
 ## Running the Program
 
-To start J.A.R.V.I.S., make sure you're in your virtual environment, then simply run:
+To start J.A.R.V.I.S., make sure you've necessary libraries, then simply run:
 
 ```bash
 python main.py
