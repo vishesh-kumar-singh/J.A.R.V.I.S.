@@ -12,7 +12,7 @@
 - **Website Access**: Opens websites based on your voice commands, adding convenience.
 - **Mini-Games**: Play a fun game of Rock-Paper-Scissors. J.A.R.V.I.S. keeps track of high scores!
 - **Note-Taking**: Simply say "note that" followed by your message, and J.A.R.V.I.S. will save it for future reference.
-- **System File Access**: Open specific system files and directories directly with voice commands.
+- **Controls**: Can control volume, brightness and functions like shutting down with voice commands.
 
 ## How to Use
 
@@ -26,4 +26,4 @@
 To start J.A.R.V.I.S., make sure you're in your virtual environment, then simply run:
 
 ```bash
-python jarvis.py
+python main.py

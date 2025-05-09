@@ -1,8 +1,10 @@
 import webbrowser as web
-from Speaking_Ability import speak
-from Recognizer import ear
-from Rock_Paper_Scissors import play1
-from Perfect_Guess import play2
+import re
+from Basic_Functionalities.Speaking_Ability import speak
+from Basic_Functionalities.Recognizer import ear
+from Games.Rock_Paper_Scissors import play1
+from Games.Perfect_Guess import play2
+from Basic_Functionalities.Brightness_and_Volume import set_brightness,set_volume,unmute, mute,switch_off,screen_saver,turn_off_monitor
 
 speak("Initialising Jarvis")
 
@@ -11,13 +13,11 @@ while True:
     itext = ear()
     if itext is None:
         continue
-    text=itext.lower()  # Use .lower() for case-insensitivity
+    text=itext.lower()  # .lower() for case-insensitivity
 
     #exit functions
     if "goodbye jarvis" in text or "good bye jarvis" in text or text=="exit" or "Good night jarvis" in text:
         speak("Good Bye Sir!")
-        break
-    elif text=="mute":
         break
 
 
@@ -28,14 +28,6 @@ while True:
         speak("Welcome home sir!")
     elif text=="jarvis you are there" or text=="jarvis are you there":
         speak("at your service, sir")
-    elif "introduce" in text and "yourself" in text:
-        speak('''Hello, I'M JARVIS. I'm a companion of my master Vishesh Kumar Singh.
-            I can handletasks like opening websites, opening files, opening spotify playlists, playing games like rock paper scissor and a perfect guess, on just voice command.
-            I can note things down for you if you command me to do so.
-            ''')
-    elif "introduce" in text and ("me" in text or "master" in text or "daddy" in text):
-        speak('''Hey, this is my master, Vishesh Kumar Singh, a fresher undergraduate at I.I.T. Kanpur, persuing bachelors degree in Mathematics and Scientific Computing''')
-
 
     #opening Music
     elif ("open" in text or "mood" in text) and "imagine dragons" in text:
@@ -44,12 +36,12 @@ while True:
     elif "open" in text and ("favourite" in text or "favourites" in text):
         speak("I'm opening a playlist based on your current favorites sir. Hope you'll enjoy.")
         web.open("https://open.spotify.com/playlist/2vZkZZCjIXAZicLEP2Nt57")
-    elif ("open" in text or "mood" in text) and ("emin" in text or "rap" in text):
+    elif ("open" in text or "mood" in text) and ("eminem" in text or "rap" in text):
         speak("I'm opening your playlist containing best eminem songs sir.")
         web.open("https://open.spotify.com/playlist/0khsRNhhHDewY4C4MeZ9vJ")
     elif ("open" in text and "spotify" in text)or("play" in text and "spotify" in text):
-        speak("I'm opening your best playlist sir. Hope you'll enjoy listening.")
-        web.open("https://open.spotify.com/playlist/4C3OKTdUNGLhvaVzsUaJ93")
+        speak("As you wish sir!! Hope you'll enjoy listening.")
+        web.open("https://open.spotify.com")
     
     
     #opening Youtube and related
@@ -81,15 +73,6 @@ while True:
         speak("opening instagram")
         web.open("https://instagram.com")
 
-
-    #opening System Files.
-    elif "notes" in text and "linear" in text:
-        speak("Opening notes on linear algebra by professor Arbind K Lal")
-        web.open("file:///D:/Notes/MTH113M/MTH113M%20typed%20notes.pdf")
-    elif "notes" in text and "single" in text and "calculus" in text:
-        speak("Opening notes on single variable calculus")
-        web.open("D:/Notes/MTH111M")
-
     
     #Games
     elif "play" in text and "rock" in text:
@@ -104,9 +87,57 @@ while True:
         with open("Notes.txt","a") as f:
             f.write(f"-{note}\n")
         speak(f"I noted down the following text: {note}")
-        print(f"I noted down the following text: {note}")
+        print(f"Noted-{note}")
     elif "clear" in text and ("notes" in text or "note" in text):
         with open("Notes.txt","w") as f:
             f.write("")
         speak(f"I have cleared all the notes")
         print(f"I noted down the following text: {note}")
+
+    
+    elif "brightness" in text:
+        if 'maximum' in text or 'max' in text:
+            level=100
+        else:
+            clean_text = re.sub(r"[^\w\s]", "", text)
+            try:
+                level = int([int(s) for s in clean_text.split() if s.isdigit()][0])
+            except IndexError as ie:
+                speak('Please provide a clear command!')
+                print('Can\'t detect the level to change the brightness into.')
+                continue
+        set_brightness(level)
+
+    elif "volume" in text:
+        if 'maximum' in text or 'max' in text:
+            level=100
+        else:
+            clean_text = re.sub(r"[^\w\s]", "", text)
+            try:
+                level = int([int(s) for s in clean_text.split() if s.isdigit()][0])
+            except IndexError as ie:
+                speak('Please provide a clear command!')
+                print('Can\'t detect the level to change the volume into.')
+                continue
+        set_volume(level)
+    elif 'unmute' in text:
+        unmute()
+    elif 'mute' in text:
+        mute()
+
+    elif 'screen' in text and 'off' in text:
+        turn_off_monitor()
+        continue
+
+    elif "screen" in text and "saver" in text:
+        screen_saver()
+
+    elif "shut down" in text or "switch off" in text:
+        speak("Are you Sure sir")
+        Ctext = ear()
+        if Ctext is None:
+            continue
+        text=Ctext.lower()
+        speak("Are you Sure sir")
+        if "yes" in text or "sure" in text:
+            switch_off()
